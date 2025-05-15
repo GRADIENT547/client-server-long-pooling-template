@@ -1,18 +1,20 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState} from 'react';
 import axios from "axios";
 
-export default function LongPulling() {
+const LongPulling = () => {
     const [messages, setMessages] = useState([]);
     const [value, setValue] = useState('');
 
+
     useEffect(() => {
         subscribe()
-    }, []);
+    }, [])
 
     const subscribe = async () => {
         try {
             const {data} = await axios.get('http://localhost:5000/get-messages')
             setMessages(prev => [data, ...prev])
+            await subscribe()
         } catch (e) {
             setTimeout(() => {
                 subscribe()
@@ -45,3 +47,5 @@ export default function LongPulling() {
         </div>
     );
 };
+
+export default LongPulling;

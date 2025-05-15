@@ -1,11 +1,11 @@
-import LongPulling from './LongPulling'
 import './App.css'
+import Chat from './components/Main'
 
 function App() {
 
   return (
     <>
-     <LongPulling />
+     <Chat />
     </>
   )
 }

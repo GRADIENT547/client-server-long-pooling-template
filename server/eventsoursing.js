@@ -11,8 +11,13 @@ app.use(cors())
 app.use(express.json())
 
 app.get('/get-messages', (req, res) => {
-    emitter.once('newMessage', (message) => {
-        res.json(message)
+    res.writeHead(200, {
+        'Connection': 'keep-alive',
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache'
+    })
+    emitter.on('newMessage', message => {
+        res.write(`data: ${JSON.stringify(message)} \n\n`)
     })
 })
 
